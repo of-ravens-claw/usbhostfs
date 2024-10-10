@@ -9,3 +9,4 @@ CTestTestfile.cmake
 *build*
 *.o
 usbhostfs_pc.exe
+.vscode/*
