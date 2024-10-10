@@ -1,9 +1,6 @@
 #ifndef _PSP2_H_
 #define _PSP2_H_
 
-#include <libk/stdio.h>
-#include <libk/string.h>
-#include <libk/stdarg.h>
 #include <psp2kern/udcd.h>
 #include <psp2kern/types.h>
 #include <psp2kern/kernel/threadmgr.h>
@@ -13,6 +10,8 @@
 #include <psp2kern/io/stat.h>
 #include <psp2kern/kernel/modulemgr.h>
 #include <psp2kern/kernel/sysmem.h>
+#include <psp2kern/kernel/debug.h> 
+#include <psp2kern/kernel/sysclib.h>
 
 typedef unsigned int u32;
 
@@ -80,9 +79,9 @@ struct UsbData {
 #define sceKernelDelayThread ksceKernelDelayThread
 #define sceKernelExitDeleteThread ksceKernelExitDeleteThread
 #define sceKernelTerminateDeleteThread ksceKernelExitDeleteThread
-#define sceKernelDcacheInvalidateRange ksceKernelCpuDcacheAndL2InvalidateRange
-#define sceKernelDcacheWritebackRange ksceKernelCpuDcacheAndL2WritebackRange
-#define pspSdkEnableInterrupts ksceKernelCpuEnableInterrupts
-#define pspSdkDisableInterrupts ksceKernelCpuDisableInterrupts
+#define sceKernelDcacheInvalidateRange ksceKernelDcacheInvalidateRange
+#define sceKernelDcacheWritebackRange ksceKernelDcacheCleanRange
+#define pspSdkEnableInterrupts ksceKernelCpuResumeIntr
+#define pspSdkDisableInterrupts ksceKernelCpuSuspendIntr
 
 #endif // _PSP2_H_

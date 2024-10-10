@@ -12,9 +12,7 @@
  */
 
 #include <psp2kern/io/dirent.h>
-#include <libk/stdlib.h>
-#include <libk/string.h>
-#include <libk/stdio.h>
+#include <psp2kern/kernel/sysclib.h>
 
 #include "usbhostfs.h"
 
@@ -712,8 +710,9 @@ int io_rename(const char *oldname, const char *newname) {
     cmd.fsnum = 0;
 
     /* Fill buffer */
-    strcpy(buf, oldname);
-    strcpy(buf + strlen(oldname) + 1, newname);
+    strncpy(buf, oldname, sizeof(buf));
+    size_t copy_length = strlen(oldname) + 1;
+    strncpy(buf + copy_length, newname, sizeof(buf) - copy_length);
 
     if (usbhostfs_connected()) {
         if (command_xchg(&cmd, sizeof(cmd), &resp, sizeof(resp), buf, size, NULL, 0)) {

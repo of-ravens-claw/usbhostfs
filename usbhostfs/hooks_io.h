@@ -8,9 +8,6 @@
 #include <psp2kern/kernel/sysmem.h>
 #include <psp2kern/io/dirent.h>
 #include <psp2kern/io/stat.h>
-#include <libk/stdlib.h>
-#include <libk/string.h>
-#include <libk/stdio.h>
 #include <taihen.h>
 
 #define MAX_HOST_FD 128

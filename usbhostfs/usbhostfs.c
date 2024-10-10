@@ -225,8 +225,8 @@ struct UsbInterface intp = {
 };
 
 /* Device request */
-int usb_request(int arg1, int arg2, struct DeviceRequest *req) {
-    DEBUG_PRINTF("func24 a1 %08X, a2 %08X, a3 %p\n", arg1, arg2, req);
+int usb_request(int arg1, int arg2, struct DeviceRequest *req, void* arg4) {
+    DEBUG_PRINTF("func24 a1 %08X, a2 %08X, a3 %p, a4 %p\n", arg1, arg2, req, arg4);
     DEBUG_PRINTF("ReqType %d, Request %d, Value %x, Index %x, Length %x\n",
                  req->bmRequestType, req->bRequest, req->wValue, req->wIndex,
                  req->wLength);
