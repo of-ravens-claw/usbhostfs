@@ -12,13 +12,15 @@
 
 #define MAX_HOST_FD 128
 
-typedef struct _fopen_fd {
+typedef struct _fopen_fd 
+{
     uint32_t sce_reserved[2];
     int fd;
     SceUID uid;
 } fopen_fd;
 
-typedef struct Hook {
+typedef struct Hook
+{
     SceUID uid;
     tai_hook_ref_t ref;
     const char name[32];
@@ -28,7 +30,8 @@ typedef struct Hook {
 } Hook;
 
 // kernel hooks
-enum {
+enum
+{
     HOOK_IO_KOPEN = 0,
     HOOK_IO_KOPEN2,
     HOOK_IO_KCLOSE,
@@ -52,7 +55,7 @@ enum {
 // psp2/io/fcntl.h
 SceUID _ksceIoOpen(const char *path, int flags, SceMode mode);
 
-SceUID _ksceIoOpen2(SceUID pid, const char *path, int flags, SceMode mode);
+SceUID _ksceIoOpenForPid(SceUID pid, const char *path, int flags, SceMode mode);
 
 int _ksceIoClose(SceUID fd);
 
@@ -97,6 +100,15 @@ void delete_hooks_io();
 
 void p2s_debug(const char *fmt, ...);
 
-#define printf p2s_debug
+#if ENABLE_LOGGING == 2
+#define debugf(x, ...) p2s_debug(x, ##__VA_ARGS__)
+#define debug2f(x, ...) p2s_debug(x, ##__VA_ARGS__)
+#elif ENABLE_LOGGING == 1
+#define debugf(x, ...) p2s_debug(x, ##__VA_ARGS__)
+#define debug2f(x, ...)
+#else
+#define debugf(x, ...)
+#define debug2f(x, ...)
+#endif
 
 #endif //_HOOKS_IO_H_

@@ -21,17 +21,17 @@ add_executable(${PROJECT_NAME}
     hooks_io.c
 )
 
-target_compile_options(${PROJECT_NAME} PRIVATE
-    -D__PSP2__ -D__KERNEL__ -D__USB__
-)
-
 target_include_directories(${PROJECT_NAME} PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}
 )
 
+target_compile_options(${PROJECT_NAME} PRIVATE
+    -D__PSP2__ -D__KERNEL__ -D__USB__ -DENABLE_LOGGING=0
+)
+
 target_link_libraries(${PROJECT_NAME}
     taihenForKernel_stub
-    SceSysmemForKernel_363_stub
+    taihenModuleUtils_stub
     SceSysmemForDriver_stub
     SceSysclibForDriver_stub
     SceThreadmgrForDriver_stub

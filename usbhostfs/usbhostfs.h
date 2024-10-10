@@ -315,9 +315,15 @@ struct BulkCommand {
 
 void p2s_debug(const char *fmt, ...);
 
-#define printf p2s_debug
-#define DEBUG_PRINTF p2s_debug
-#define MODPRINTF p2s_debug
+#if ENABLE_LOGGING == 2
+#define printf(x, ...) p2s_debug(x, ##__VA_ARGS__)
+#define DEBUG_PRINTF(x, ...) p2s_debug(x, ##__VA_ARGS__)
+#define MODPRINTF(x, ...) p2s_debug(x, ##__VA_ARGS__)
+#else
+#define printf(x, ...)
+#define DEBUG_PRINTF(x, ...)
+#define MODPRINTF(x, ...)
+#endif
 
 int usbhostfs_connected(void);
 
